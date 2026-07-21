@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import ocr
+from app.routers import ocr, face
 
 app = FastAPI(
     title="eKYC AI Service",
@@ -17,6 +17,7 @@ app.add_middleware(
 )
 
 app.include_router(ocr.router)
+app.include_router(face.router)
 
 
 @app.get("/")

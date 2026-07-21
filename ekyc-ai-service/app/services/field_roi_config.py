@@ -1,6 +1,3 @@
-# Tọa độ % (0.0 - 1.0) của từng field trên ảnh CCCD đã được căn chỉnh khớp khung.
-# Format: (x0, x1, y0, y1) - tỷ lệ theo chiều rộng/cao ảnh.
-FIELD_ROI = {
 # Mỗi field giờ là 1 LIST các ROI (thường 1 ROI, riêng field nhiều dòng thì 2+ ROI theo thứ tự trên->dưới)
 FIELD_ROI = {
     "so_cccd":             [(0.40, 0.75, 0.45, 0.52)],
@@ -12,5 +9,4 @@ FIELD_ROI = {
         (0.30, 0.80, 0.82, 0.875),   # dòng 1: nhãn + phần giá trị đầu (VD "Xóm 6")
         (0.30, 0.80, 0.875, 0.93),   # dòng 2: phần giá trị tiếp theo (VD "Tân Thành, Kim Sơn, Ninh Bình")
     ],
-}
 }
