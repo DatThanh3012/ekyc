@@ -1,0 +1,36 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Biến môi trường (chứa secret, không bao giờ push)
+.env
+.env.local
+
+# File debug tạo ra trong quá trình test OCR
+debug_output/
+
+# Ảnh test cá nhân/nhạy cảm - không push dữ liệu CCCD thật lên GitHub
+test_images/
+
+# Model weights tải về (VietOCR/DeepFace tự tải, không cần lưu trong repo)
+*.pth
+*.h5
+weights/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
