@@ -2,6 +2,7 @@ package com.ekyc.backend.service;
 
 import com.ekyc.backend.client.AiServiceClient;
 import com.ekyc.backend.dto.CccdInfoResponse;
+import com.ekyc.backend.dto.ProfileResponse;
 import com.ekyc.backend.dto.VerificationResponse;
 import com.ekyc.backend.dto.ai.CccdExtractAiResponse;
 import com.ekyc.backend.dto.ai.FaceVerifyAiResponse;
@@ -11,6 +12,7 @@ import com.ekyc.backend.entity.VerificationStatus;
 import com.ekyc.backend.repository.CccdInfoRepository;
 import com.ekyc.backend.repository.UserRepository;
 import com.ekyc.backend.repository.VerificationStatusRepository;
+import com.ekyc.backend.dto.ProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -99,6 +101,25 @@ public class KycService {
                 saved.getFaceMatchVerified(), saved.getSimilarityPercent(), saved.getStatus().name()
         );
     }
+    public ProfileResponse getProfile(String username) {
+    User user = getUserByUsername(username);
+
+    CccdInfoResponse cccdInfoResponse = cccdInfoRepository.findByUserId(user.getId())
+            .map(info -> new CccdInfoResponse(
+                    info.getSoCccd(), info.getHoTen(),
+                    info.getNgaySinh() != null ? info.getNgaySinh().format(DATE_FORMAT) : null,
+                    info.getGioiTinh(), info.getQuocTich(), info.getQueQuan(), info.getNoiThuongTru()
+            ))
+            .orElse(null);
+
+    VerificationResponse verificationResponse = verificationStatusRepository.findByUserId(user.getId())
+            .map(v -> new VerificationResponse(
+                    v.getFaceMatchVerified(), v.getSimilarityPercent(), v.getStatus().name()
+            ))
+            .orElse(null);
+
+    return new ProfileResponse(user.getUsername(), user.getEmail(), cccdInfoResponse, verificationResponse);
+}
 
     private User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
